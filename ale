@@ -1,0 +1,16 @@
+[90m= [39m[34;4mApp\Models\Sale[39;24m {#6049
+    [34mid[39m: [35m1[39m,
+    [34minvoice_number[39m: "[32mINV-20251230-0001[39m",
+    [34muser_id[39m: [35m1[39m,
+    [34mcustomer_id[39m: [36mnull[39m,
+    [34msubtotal[39m: "[32m29657.00[39m",
+    [34mdiscount[39m: "[32m0.00[39m",
+    [34mtotal[39m: "[32m29657.00[39m",
+    [34mtgl_jual[39m: [36mnull[39m,
+    [34mpaid_amount[39m: "[32m0.00[39m",
+    [34mchange_amount[39m: "[32m0.00[39m",
+    [34mstatus[39m: "[32mpending[39m",
+    [34mcreated_at[39m: "[32m2025-12-30 03:50:51[39m",
+    [34mupdated_at[39m: "[32m2025-12-30 03:50:51[39m",
+  }
+

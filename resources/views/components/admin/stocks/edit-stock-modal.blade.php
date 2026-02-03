@@ -1,0 +1,95 @@
+<!-- ===================== -->
+<!-- EDIT STOCK MODAL -->
+<!-- ===================== -->
+
+<!-- Backdrop -->
+<div x-show="editOpen" x-transition.opacity class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+    @click="editOpen = false">
+</div>
+
+<!-- Modal -->
+<div x-show="editOpen" x-transition @keydown.escape.window="editOpen = false"
+    class="fixed inset-0 z-50 flex items-center justify-center px-4">
+
+    <div class="w-full max-w-md rounded-xl bg-white p-5 shadow-xl dark:bg-gray-900" @click.stop>
+
+        <!-- Header -->
+        <div class="mb-4 flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                Edit Stock
+            </h2>
+
+            <button @click="editOpen = false" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                ✕
+            </button>
+        </div>
+
+        <!-- Form -->
+        <form @submit.prevent="submitEdit()" class="space-y-4">
+
+            <!-- Product -->
+            <div>
+                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Product
+                </label>
+
+                <select x-model="editStock.product_id" required
+                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-3 text-sm
+                           dark:border-gray-700 dark:bg-gray-900 dark:text-white">
+
+                    <template x-for="product in products" :key="product.id">
+                        <option :value="product.id" x-text="product.name">
+                        </option>
+                    </template>
+                </select>
+            </div>
+
+            <!-- LOT -->
+            <div>
+                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    LOT Number
+                </label>
+
+                <input type="text" x-model="editStock.lot_number" required
+                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 text-sm
+                           dark:border-gray-700 dark:bg-gray-900 dark:text-white">
+            </div>
+
+            <!-- Expired -->
+            <div>
+                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Expired Date
+                </label>
+
+                <input type="date" x-model="editStock.expired" required
+                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 text-sm
+                           dark:border-gray-700 dark:bg-gray-900 dark:text-white">
+            </div>
+
+            <!-- Qty -->
+            <div>
+                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Quantity
+                </label>
+
+                <input type="number" min="0" x-model="editStock.qty" required
+                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 text-sm
+                           dark:border-gray-700 dark:bg-gray-900 dark:text-white">
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end gap-2 pt-4">
+                <button type="button" @click="editOpen = false"
+                    class="rounded-lg border px-4 py-2 text-sm text-gray-600 dark:text-gray-300">
+                    Cancel
+                </button>
+
+                <button type="submit"
+                    class="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
+                    Update
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
