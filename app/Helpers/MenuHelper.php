@@ -31,10 +31,36 @@ class MenuHelper
                     //     'path' => '/admin/products',
                     // ],
                     [
-                        'name' => 'Products',
+                        'name' => 'Barang barang',
+                        'icon' => 'box',
+                        'path' => '/admin/items',
+                    ],
+                    [
+                        'name' => 'Kategori',
+                        'icon' => 'box',
+                        'path' => '/admin/categories/',
+                    ],
+                    [
+                        'name' => 'Pinjam Barang',
                         'icon' => 'box',
                         'path' => '/admin/products',
                     ],
+                    [
+                        'name' => 'Kembalikan Barang',
+                        'icon' => 'box',
+                        'path' => '/admin/products',
+                    ],
+                     [
+                        'name' => 'Data Guru',
+                        'icon' => 'box',
+                        'path' => '/admin/teachers',
+                    ],
+                   [
+    'name' => 'Riwayat Peminjaman',
+    'icon' => 'clipboard-list',
+    'path' => '/my/loans',
+],
+
                     [
                         'name' => 'Stok Produk',
                         'icon' => 'layers',
@@ -60,6 +86,11 @@ class MenuHelper
                     ],
                     [
                         'name' => 'Cart',
+                        'icon' => 'file-txt',
+                        'path' => '/cart',
+                    ],
+                        [
+                        'name' => 'Keluar',
                         'icon' => 'file-txt',
                         'path' => '/cart',
                     ],

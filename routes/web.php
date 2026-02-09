@@ -17,7 +17,59 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Controllers\ProductSearchController;
 use App\Http\Controllers\Penjualan\SaleRegistrationController;
+use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\LoanController;
+use App\Http\Controllers\My\LoanController as MyLoanController;
 
+
+
+
+Route::middleware('auth')->prefix('my')->name('my.')->group(function () {
+    Route::get('/loans', [MyLoanController::class, 'index'])
+        ->name('loans.index');
+});
+
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+
+    // 🔓 SEMUA USER LOGIN (TEKNISI / GURU / STAFF)
+    Route::get('/items', [ItemController::class, 'index'])
+        ->name('admin.items.index');
+
+    Route::get('/items/{item}', [ItemController::class, 'show'])
+        ->name('admin.items.show');
+
+    // 🔒 KHUSUS ADMIN
+    Route::middleware('role:admin')->group(function () {
+
+        Route::post('/items', [ItemController::class, 'store'])
+            ->name('admin.items.store');
+
+        Route::get('/items/{item}/edit', [ItemController::class, 'edit'])
+            ->name('admin.items.edit');
+
+        Route::put('/items/{item}', [ItemController::class, 'update'])
+            ->name('admin.items.update');
+
+        Route::delete('/items/{item}', [ItemController::class, 'destroy'])
+            ->name('admin.items.destroy');
+    });
+});
+
+
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+
+    Route::get('/loans', [LoanController::class, 'index'])->name('loans.index');
+    Route::get('/loans/create', [LoanController::class, 'create'])->name('loans.create');
+    Route::post('/loans', [LoanController::class, 'store'])->name('loans.store');
+
+    Route::patch('/loans/{loan}/return', [LoanController::class, 'return'])
+        ->name('loans.return');
+});
 
 
 // routes/web.php
@@ -35,6 +87,19 @@ Route::get('/products/search', ProductSearchController::class)
 // })->name('products.search');
 
 Route::middleware(['auth'])->group(function () {
+    /*
+    |--------------------------------------------------------------------------
+    | PENJUALAN 
+    |--------------------------------------------------------------------------
+    */
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+Route::resource('categories', CategoryController::class)
+    ->names('categories');
+
+
+});
 
     /*
     |--------------------------------------------------------------------------
@@ -95,6 +160,8 @@ Route::middleware(['auth', 'role:admin'])
     ->name('accounting.')
     ->group(function () {
 
+
+
         Route::get('/journals', [JournalController::class, 'index'])
             ->name('journals.index');
 
@@ -147,7 +214,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/checkout', [CheckoutController::class, 'process'])
         ->name('checkout.process');
-
 });
 
 
@@ -161,11 +227,16 @@ Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->as('admin.')
     ->group(function () {
+        
+Route::resource('produks', ProdukController::class);
+Route::get('produks/search', [ProdukController::class, 'search']);
+
+        Route::resource('teachers', TeacherController::class);
+Route::get('teachers-search', [TeacherController::class, 'search']);
         Route::resource('products', ProductController::class);
         Route::resource('stocks', StockController::class);
-    Route::resource('customers', CustomerController::class)->except(['show']);
-
-});
+        Route::resource('customers', CustomerController::class)->except(['show']);
+    });
 
 
 /*
