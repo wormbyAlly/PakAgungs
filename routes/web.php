@@ -25,6 +25,13 @@ use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\My\LoanController as MyLoanController;
 use App\Http\Controllers\LoanReturnController;
 
+Route::middleware(['auth'])
+    ->prefix('my')
+    ->group(function () {
+        Route::get('/loans', [MyLoanController::class, 'index'])
+            ->name('loans.my');
+    });
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/loan-returns', [LoanReturnController::class, 'index'])
         ->name('loan-returns.index');
@@ -35,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/loan-returns/{loan}/return', [LoanReturnController::class, 'store'])
         ->name('loan-returns.store');
 });
+
 
 
 

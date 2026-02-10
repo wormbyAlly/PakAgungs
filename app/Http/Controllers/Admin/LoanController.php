@@ -74,21 +74,25 @@ class LoanController extends Controller
 }
 
 
-    public function markReturned(Loan $loan)
-    {
-        if ($loan->status === 'returned') {
-            return back();
+   public function markReturned(Loan $loan)
+{
+    DB::transaction(function () use ($loan) {
+
+        $loan = Loan::lockForUpdate()->findOrFail($loan->id);
+
+        if ($loan->status !== 'borrowed') {
+            throw new \Exception('Peminjaman sudah dikembalikan');
         }
 
-        DB::transaction(function () use ($loan) {
-            $loan->item->increment('stock', $loan->quantity);
+        $loan->item()->lockForUpdate()->increment('stock', $loan->quantity);
 
-            $loan->update([
-                'status'      => 'returned',
-                'return_date' => now(),
-            ]);
-        });
+        $loan->update([
+            'status'      => 'returned',
+            'return_date' => now(),
+        ]);
+    });
 
-        return back()->with('success', 'Barang berhasil dikembalikan');
-    }
+    return back()->with('success', 'Barang berhasil dikembalikan');
+}
+
 }
