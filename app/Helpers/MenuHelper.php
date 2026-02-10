@@ -21,6 +21,12 @@ class MenuHelper
                         'path' => '/',
                     ],
                     [
+    'name' => 'Pengembalian',
+    'icon' => 'corner-up-left',
+    'path' => '/loan-returns',
+],
+
+                    [
                         'name' => 'Kelola User',
                         'icon' => 'users',
                         'path' => '/admin/users',

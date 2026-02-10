@@ -10,6 +10,8 @@
 
         <!-- KANAN: Action -->
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button @click="createOpen = true">+ Tambah Guru</button>
+
             <x-admin.teachers.create-teacher-modal />
             <x-admin.teachers.edit-teacher-modal />
 

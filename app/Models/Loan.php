@@ -54,4 +54,9 @@ protected $fillable = [
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function return()
+{
+    return $this->hasOne(LoanReturn::class);
+}
+
 }

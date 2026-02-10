@@ -19,35 +19,32 @@ function teacherTable() {
         },
 
         /* ================= CREATE ================= */
-        submitCreateTeacher() {
-            fetch('/admin/teachers', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.form),
-            })
-            .then(async res => {
-                const data = await res.json();
-                if (!res.ok) throw data;
-                return data;
-            })
-            .then(data => {
-                toast.success(data.message);
-                this.form.name = '';
-                this.createOpen = false;
-                this.fetchTeachers(this.currentPage);
-            })
-            
-        this.createOpen = false;
-
-
-            .catch(err => {
-                toast.error(err.message || 'Gagal menambahkan guru');
-            });
+ submitCreateTeacher() {
+    fetch('/admin/teachers', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
+        body: JSON.stringify(this.form),
+    })
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw data;
+        return data;
+    })
+    .then(data => {
+        toast.success(data.message);
+        this.form.name = '';
+        this.createOpen = false; // CLOSE MODAL DI SINI SAJA
+        this.fetchTeachers(this.currentPage);
+    })
+    .catch(err => {
+        toast.error(err.message || 'Gagal menambahkan guru');
+    });
+},
+
 
         /* ================= EDIT ================= */
         openEditModal(teacher) {

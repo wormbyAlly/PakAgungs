@@ -1,4 +1,4 @@
-<div x-data="{ open: false, form: { name: '' } }">
+<div x-show="createOpen">
 
     <!-- Trigger Button -->
     <button @click="open = true"
@@ -37,7 +37,7 @@
             </div>
 
             <!-- Form -->
-            <form @submit.prevent="submitCreateTeacher()" class="space-y-4">
+            <form @submit.prevent="submitCreateTeacher" class="space-y-4">
                 @csrf
 
                 <!-- Nama Guru -->
