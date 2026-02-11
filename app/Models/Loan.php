@@ -9,16 +9,21 @@ class Loan extends Model
 {
     use HasFactory;
 
+    const STATUS_BORROWED = 'borrowed';
+    const STATUS_RETURNED = 'returned';
+    const STATUS_CANCELED = 'canceled';
+
     // App\Models\Loan.php
-protected $fillable = [
-    'user_id',
-    'item_id',
-    'teacher_id',
-    'quantity',
-    'location',
-    'loan_date',
-    'status',
-];
+    protected $fillable = [
+        'user_id',
+        'item_id',
+        'teacher_id',
+        'quantity',
+        'location',
+        'loan_date',
+        'return_date',
+        'status',
+    ];
 
     /* =====================
      | RELATIONS
@@ -55,8 +60,7 @@ protected $fillable = [
         return $this->belongsTo(User::class, 'user_id');
     }
     public function return()
-{
-    return $this->hasOne(LoanReturn::class);
-}
-
+    {
+        return $this->hasOne(LoanReturn::class);
+    }
 }

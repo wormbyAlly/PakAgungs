@@ -31,6 +31,11 @@ Route::middleware(['auth'])
         Route::get('/loans', [MyLoanController::class, 'index'])
             ->name('loans.my');
     });
+    
+Route::middleware('auth')->group(function () {
+    Route::patch('/loans/{loan}/cancel', [LoanController::class, 'cancel'])
+        ->name('loans.cancel');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/loan-returns', [LoanReturnController::class, 'index'])

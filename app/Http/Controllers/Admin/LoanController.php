@@ -5,6 +5,7 @@ use App\Models\Loan;
 use App\Models\Item;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
@@ -13,6 +14,41 @@ use Illuminate\Validation\ValidationException;
 
 class LoanController extends Controller
 {
+    
+    public function cancel(Loan $loan)
+    {
+        // 1. Pastikan milik user yang login
+        if ($loan->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // 2. Hanya bisa cancel jika masih borrowed
+        if ($loan->status !== Loan::STATUS_BORROWED) {
+            return back()->with('error', 'Loan tidak bisa dibatalkan.');
+        }
+
+       DB::transaction(function () use ($loan) {
+
+    $loan = Loan::where('id', $loan->id)
+        ->lockForUpdate()
+        ->first();
+
+    if ($loan->status !== Loan::STATUS_BORROWED) {
+        throw new \Exception('Loan already processed.');
+    }
+
+    $loan->item()->lockForUpdate()->first()
+        ->increment('stock', $loan->quantity);
+
+    $loan->update([
+        'status' => Loan::STATUS_CANCELED,
+    ]);
+});
+
+
+        return back()->with('success', 'Peminjaman berhasil dibatalkan.');
+    }
+
     public function index()
     {
         $loans = Loan::with(['item', 'teacher', 'recordedBy'])

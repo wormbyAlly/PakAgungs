@@ -21,10 +21,10 @@ class MenuHelper
                         'path' => '/',
                     ],
                     [
-    'name' => 'Pengembalian',
-    'icon' => 'corner-up-left',
-    'path' => '/loan-returns',
-],
+                        'name' => 'Pengembalian',
+                        'icon' => 'corner-up-left',
+                        'path' => '/loan-returns',
+                    ],
 
                     [
                         'name' => 'Kelola User',
@@ -56,16 +56,16 @@ class MenuHelper
                         'icon' => 'box',
                         'path' => '/admin/products',
                     ],
-                     [
+                    [
                         'name' => 'Data Guru',
                         'icon' => 'box',
                         'path' => '/admin/teachers',
                     ],
-                   [
-    'name' => 'Riwayat Peminjaman',
-    'icon' => 'clipboard-list',
-    'path' => '/my/loans',
-],
+                    [
+                        'name' => 'Riwayat Peminjaman',
+                        'icon' => 'clipboard-list',
+                        'path' => '/my/loans',
+                    ],
 
                     [
                         'name' => 'Stok Produk',
@@ -95,7 +95,7 @@ class MenuHelper
                         'icon' => 'file-txt',
                         'path' => '/cart',
                     ],
-                        [
+                    [
                         'name' => 'Keluar',
                         'icon' => 'file-txt',
                         'path' => '/cart',
@@ -116,22 +116,28 @@ class MenuHelper
                     [
                         'name' => 'Dashboard',
                         'icon' => 'dashboard',
-                        'path' => '/',
+                        'path' => '/dashboard',
+                    ],
+                
+                        [
+                        'name' => 'Pinjam Barang',
+                        'icon' => 'box',
+                        'path' => '/admin/products',
                     ],
                     [
-                        'name' => 'Penjualan',
-                        'icon' => 'shopping-cart',
-                        'path' => '/sales',
+                        'name' => 'Pengembalian',
+                        'icon' => 'corner-up-left',
+                        'path' => '/loan-returns',
                     ],
                     [
-                        'name' => 'Produk',
-                        'icon' => 'layers',
-                        'path' => '/products',
-                    ],
+                        'name' => 'Riwayat Peminjaman',
+                        'icon' => 'clipboard-list',
+                        'path' => '/my/loans',
+                    ],   
                     [
-                        'name' => 'Stok Produk',
-                        'icon' => 'layers',
-                        'path' => '/stocks',
+                        'name' => 'Keluar',
+                        'icon' => 'file-txt',
+                        'path' => '/cart',
                     ],
                 ],
             ],
