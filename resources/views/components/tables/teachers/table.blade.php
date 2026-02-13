@@ -10,7 +10,9 @@
 
         <!-- KANAN: Action -->
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <button @click="createOpen = true">+ Tambah Guru</button>
+            <button class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3
+           text-theme-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50
+           dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400" @click="createOpen = true">+ Tambah Guru</button>
 
             <x-admin.teachers.create-teacher-modal />
             <x-admin.teachers.edit-teacher-modal />

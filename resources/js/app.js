@@ -1,3 +1,5 @@
+import { createPopper } from '@popperjs/core'
+window.createPopper = createPopper
 import './bootstrap';
 import Alpine from 'alpinejs';
 import ApexCharts from 'apexcharts';

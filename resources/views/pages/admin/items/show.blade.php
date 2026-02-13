@@ -140,7 +140,7 @@
                     <input
                         type="text"
                         x-model="form.location"
-                        required
+                        
                         class="h-11 w-full rounded-lg border px-4 text-sm"
                     />
                 </div>
@@ -195,17 +195,22 @@
             selectedTeacher: null,
             showTeacherDropdown: false,
 
-            form: {
-                item_id: {{ $item->id }},
-                teacher_id: null,
-                quantity: 1,
-                location: '',
-                loan_date: '',
-            },
+      form: {
+    item_id: {{ $item->id }},
+    teacher_id: null,
+    quantity: 1,
+    location: '',
+    loan_date: '',
+},
 
-            init() {
-                this.fetchTeachers()
-            },
+init() {
+    this.fetchTeachers()
+
+    // set default ke hari ini (format YYYY-MM-DD)
+    const today = new Date().toISOString().split('T')[0]
+    this.form.loan_date = today
+},
+
 
             fetchTeachers() {
                 fetch('/admin/teachers', {

@@ -19,28 +19,29 @@
 
             <tbody>
                 @forelse ($loans as $loan)
-                    <tr class="border-t">
-                        <td class="px-4 py-3">{{ $loan->item->name }}</td>
-                        <td class="px-4 py-3 text-center">{{ $loan->quantity }}</td>
-                        <td class="px-4 py-3">{{ $loan->teacher->name }}</td>
-                        <td class="px-4 py-3">
-                            {{ \Carbon\Carbon::parse($loan->loan_date)->format('d M Y') }}
-                        </td>
-                        <td class="px-4 py-3">
-                            <span class="px-2 py-1 rounded text-xs
+                <tr class="border-t">
+                    <td class="px-4 py-3">{{ $loan->item->name }}</td>
+                    <td class="px-4 py-3 text-center">{{ $loan->quantity }}</td>
+                    <td class="px-4 py-3">{{ $loan->teacher->name }}</td>
+                    <td class="px-4 py-3">
+                        {{ \Carbon\Carbon::parse($loan->loan_date)->format('d M Y H:i') }}
+                    </td>
+
+                    <td class="px-4 py-3">
+                        <span class="px-2 py-1 rounded text-xs
                                 {{ $loan->status === 'returned'
                                     ? 'bg-green-100 text-green-700'
                                     : 'bg-yellow-100 text-yellow-700' }}">
-                                {{ ucfirst($loan->status) }}
-                            </span>
-                        </td>
-                    </tr>
+                            {{ ucfirst($loan->status) }}
+                        </span>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="5" class="px-4 py-6 text-center text-gray-500">
-                            Belum ada riwayat peminjaman
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="5" class="px-4 py-6 text-center text-gray-500">
+                        Belum ada riwayat peminjaman
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>

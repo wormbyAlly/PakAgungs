@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use App\Models\Loan;
+use Illuminate\Support\Facades\Storage;
 
 
 class ItemController extends Controller
@@ -14,7 +15,7 @@ class ItemController extends Controller
     /**
      * Display a listing of the items.
      */
-   public function show(Item $item)
+    public function show(Item $item)
     {
         $item->load('category');
 
@@ -44,9 +45,9 @@ class ItemController extends Controller
             $search = trim($request->search);
 
             $query->where('name', 'like', "%{$search}%")
-                  ->orWhereHas('category', function ($q) use ($search) {
-                      $q->where('name', 'like', "%{$search}%");
-                  });
+                ->orWhereHas('category', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
         }
 
         $items = $query->paginate(10);
@@ -60,6 +61,11 @@ class ItemController extends Controller
                         'name' => $item->name,
                         'stock' => $item->stock,
                         'is_active' => $item->is_active,
+
+                        'image' => $item->image
+                            ? asset('storage/' . $item->image)
+                            : null,
+
 
                         'category' => [
                             'id'   => $item->category->id,
@@ -89,17 +95,19 @@ class ItemController extends Controller
             'stock'       => ['required', 'integer', 'min:0'],
             'category_id' => ['required', 'exists:categories,id'],
             'is_active'   => ['nullable', 'boolean'],
+            'image'       => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
-        Item::create([
-            'name'        => $validated['name'],
-            'stock'       => $validated['stock'],
-            'category_id' => $validated['category_id'],
-            'is_active'   => $validated['is_active'] ?? true,
-        ]);
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')
+                ->store('items', 'public');
+        }
+
+        Item::create($validated);
 
         return response()->json(['success' => true]);
     }
+
 
     /**
      * Show the form for editing the specified item.
@@ -121,17 +129,25 @@ class ItemController extends Controller
             'stock'       => ['required', 'integer', 'min:0'],
             'category_id' => ['required', 'exists:categories,id'],
             'is_active'   => ['nullable', 'boolean'],
+            'image'       => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ]);
 
-        $item->update([
-            'name'        => $validated['name'],
-            'stock'       => $validated['stock'],
-            'category_id' => $validated['category_id'],
-            'is_active'   => $validated['is_active'] ?? $item->is_active,
-        ]);
+        if ($request->hasFile('image')) {
+
+            // hapus gambar lama kalau ada
+            if ($item->image) {
+                Storage::disk('public')->delete($item->image);
+            }
+
+            $validated['image'] = $request->file('image')
+                ->store('items', 'public');
+        }
+
+        $item->update($validated);
 
         return response()->json(['success' => true]);
     }
+
 
     /**
      * Remove the specified item.

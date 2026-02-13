@@ -67,14 +67,7 @@
                            dark:border-gray-700 dark:bg-gray-900 dark:text-white">
             </div>
 
-            <!-- Status -->
-            <div class="flex items-center gap-2">
-                <input type="checkbox" x-model="editItem.is_active"
-                    class="rounded border-gray-300 dark:border-gray-700">
-                <span class="text-sm text-gray-700 dark:text-gray-300">
-                    Active
-                </span>
-            </div>
+    
 
             <!-- Actions -->
             <div class="flex justify-end gap-2 pt-4">

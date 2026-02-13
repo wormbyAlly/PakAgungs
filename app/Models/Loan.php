@@ -21,8 +21,13 @@ class Loan extends Model
         'quantity',
         'location',
         'loan_date',
+        'loaned_at',
         'return_date',
         'status',
+    ];
+     protected $casts = [
+        'loan_date'  => 'datetime',
+        'return_date'=> 'datetime',
     ];
 
     /* =====================

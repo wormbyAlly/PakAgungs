@@ -55,7 +55,7 @@ class LoanController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('loans.index', compact('loans'));
+        return view('pages.loans.index', compact('loans'));
     }
 
     public function create()
@@ -73,7 +73,7 @@ class LoanController extends Controller
             'item_id'    => 'required|exists:items,id',
             'teacher_id' => 'required|exists:teachers,id',
             'quantity'   => 'required|integer|min:1',
-            'location'   => 'required|string|max:255',
+            'location'   => 'nullable|string|max:255',
             'loan_date'  => 'required|date',
         ]);
     } catch (ValidationException $e) {

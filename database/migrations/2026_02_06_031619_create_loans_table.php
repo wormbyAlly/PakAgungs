@@ -21,7 +21,7 @@ return new class extends Migration {
 
             // Data peminjaman
             $table->integer('quantity')->default(1);
-            $table->string('location'); // lokasi peminjaman
+            $table->string('location')->nullable(); // lokasi peminjaman
             $table->date('loan_date');
             $table->date('return_date')->nullable();
 

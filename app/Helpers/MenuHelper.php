@@ -21,6 +21,16 @@ class MenuHelper
                         'path' => '/',
                     ],
                     [
+                        'name' => 'Laporan Peminjaman',
+                        'icon' => 'file-text',
+                        'path' => '/admin/loan-reports',
+                    ],
+                    [
+                        'name' => 'Peminjaman',
+                        'icon' => 'box',
+                        'path' => '/admin/loans',
+                    ],
+                    [
                         'name' => 'Pengembalian',
                         'icon' => 'corner-up-left',
                         'path' => '/loan-returns',
@@ -46,16 +56,7 @@ class MenuHelper
                         'icon' => 'box',
                         'path' => '/admin/categories/',
                     ],
-                    [
-                        'name' => 'Pinjam Barang',
-                        'icon' => 'box',
-                        'path' => '/admin/products',
-                    ],
-                    [
-                        'name' => 'Kembalikan Barang',
-                        'icon' => 'box',
-                        'path' => '/admin/products',
-                    ],
+              
                     [
                         'name' => 'Data Guru',
                         'icon' => 'box',
@@ -65,35 +66,6 @@ class MenuHelper
                         'name' => 'Riwayat Peminjaman',
                         'icon' => 'clipboard-list',
                         'path' => '/my/loans',
-                    ],
-
-                    [
-                        'name' => 'Stok Produk',
-                        'icon' => 'layers',
-                        'path' => '/admin/stocks',
-                    ],
-                    [
-                        'name' => 'Pelanggan',
-                        'icon' => 'user-profile',
-                        'path' => '/admin/customers',
-                    ],
-                    [
-                        'name' => 'Penjualan',
-                        'icon' => 'shopping-cart',
-                        'subItems' => [
-                            ['name' => 'Pendaftaran', 'path' => '/penjualan/pendaftaran', 'pro' => false],
-                            ['name' => 'List Penjualan', 'path' => '/penjualan', 'pro' => false]
-                        ],
-                    ],
-                    [
-                        'name' => 'Laporan',
-                        'icon' => 'file-txt',
-                        'path' => '/accounting/journals',
-                    ],
-                    [
-                        'name' => 'Cart',
-                        'icon' => 'file-txt',
-                        'path' => '/cart',
                     ],
                     [
                         'name' => 'Keluar',
@@ -118,8 +90,8 @@ class MenuHelper
                         'icon' => 'dashboard',
                         'path' => '/dashboard',
                     ],
-                
-                        [
+
+                    [
                         'name' => 'Pinjam Barang',
                         'icon' => 'box',
                         'path' => '/admin/products',
@@ -133,7 +105,7 @@ class MenuHelper
                         'name' => 'Riwayat Peminjaman',
                         'icon' => 'clipboard-list',
                         'path' => '/my/loans',
-                    ],   
+                    ],
                     [
                         'name' => 'Keluar',
                         'icon' => 'file-txt',

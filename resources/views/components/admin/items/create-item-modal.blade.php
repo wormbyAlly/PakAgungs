@@ -36,6 +36,35 @@
         <!-- Form -->
         <form @submit.prevent="submitCreate()" class="space-y-4">
 
+            <div>
+                <label class="block text-sm mb-1">Gambar</label>
+                <input type="file"
+                    @change="handleImage($event)"
+                    accept="image/*"
+                    class="w-full text-sm border rounded-lg px-3 py-2">
+
+            </div>
+
+            <div x-show="form.image"
+                class="mt-3 flex items-center gap-3 rounded-lg border p-2 bg-gray-50 dark:bg-gray-800">
+
+                <img :src="previewImage"
+                    class="w-20 h-20 rounded-lg object-cover border">
+
+                <div class="text-xs text-gray-700 dark:text-gray-300 space-y-1">
+                    <template x-if="form.image">
+                        <div class="font-semibold truncate max-w-[150px]"
+                            x-text="form.image.name"></div>
+                    </template>
+
+                    <template x-if="form.image">
+                        <div x-text="(form.image.size / 1024).toFixed(1) + ' KB'"></div>
+                    </template>
+
+                </div>
+
+            </div>
+
             <!-- Item Name -->
             <div>
                 <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -75,16 +104,6 @@
                     class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 text-sm
                            dark:border-gray-700 dark:bg-gray-900 dark:text-white">
             </div>
-
-            <!-- Status -->
-            <div class="flex items-center gap-2">
-                <input type="checkbox" x-model="form.is_active"
-                    class="rounded border-gray-300 dark:border-gray-700">
-                <span class="text-sm text-gray-700 dark:text-gray-300">
-                    Active
-                </span>
-            </div>
-
             <!-- Actions -->
             <div class="flex justify-end gap-2 pt-4">
                 <button type="button" @click="createOpen = false"

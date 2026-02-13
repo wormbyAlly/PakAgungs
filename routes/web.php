@@ -24,6 +24,33 @@ use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\My\LoanController as MyLoanController;
 use App\Http\Controllers\LoanReturnController;
+use App\Http\Controllers\Admin\LoanReportController;
+
+Route::post('/loan-returns/{loan}', [LoanReturnController::class, 'store'])
+    ->name('loan-returns.store');
+
+Route::prefix('admin')
+    ->middleware(['auth'])
+    ->name('admin.')
+    ->group(function () {
+
+        // HALAMAN PEMINJAMAN (gabungan list + modal)
+        Route::get('/loans', [ItemController::class, 'index'])
+            ->name('loans.index');
+
+        // Endpoint JSON tetap untuk fetch items
+        Route::get('/items', [ItemController::class, 'index']);
+
+    });
+
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/loan-reports', [LoanReportController::class, 'index'])
+        ->name('admin.loan-reports.index');
+
+    Route::get('/loan-reports/pdf', [LoanReportController::class, 'pdf'])
+        ->name('admin.loan-reports.pdf');
+});
 
 Route::middleware(['auth'])
     ->prefix('my')
@@ -31,13 +58,16 @@ Route::middleware(['auth'])
         Route::get('/loans', [MyLoanController::class, 'index'])
             ->name('loans.my');
     });
-    
+
 Route::middleware('auth')->group(function () {
     Route::patch('/loans/{loan}/cancel', [LoanController::class, 'cancel'])
         ->name('loans.cancel');
 });
 
 Route::middleware(['auth'])->group(function () {
+
+
+
     Route::get('/loan-returns', [LoanReturnController::class, 'index'])
         ->name('loan-returns.index');
 
